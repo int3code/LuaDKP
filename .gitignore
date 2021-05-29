@@ -1,0 +1,5 @@
+Manager/Bin/lua5.1.dll
+Manager/Bin/lua5.1.exe
+Manager/Groups/**
+Manager/Output/**
+Manager/Config.lua

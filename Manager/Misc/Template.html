@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>LUADKP_TITLE</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/LUADKP_THEME/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    .ng-cloak { display: none !important }
+    .color-links a, .color-links a:hover, .color-links a:focus { color: #FF9900 !important }
+    .color-epics a, .color-epics a:hover, .color-epics a:focus { color: #A335EE !important }
+  </style>
+</head>
+<body style="LUADKP_STYLE">
+<div class="container-fluid ng-cloak" ng-app="app" ng-controller="controller">
+
+  <!-- TITLE -->
+  <br>
+  <h2>LUADKP_TITLE</h2>
+  Last updated on LUADKP_DATE
+  <br>
+  <br>
+
+  <!-- ACCOUNT -->
+  <div class="d-sm-none" ng-show="accounts.length > 1">
+    <select class="custom-select" ng-model="account" ng-change="ChangeAccount()">
+      <option ng-repeat="a in accounts" ng-value="a.id">{{ a.name }}</option>
+    </select>
+    <br><br>
+  </div>
+
+  <!-- TABS -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#chars">Chars</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#items">Items</a>
+    </li>
+    <div style="flex:1"></div>
+
+    <!-- ACCOUNT -->
+    <div class="d-none d-sm-block" ng-show="accounts.length > 1">
+      <select class="custom-select" ng-model="account" ng-change="ChangeAccount()">
+        <option style="min-width: 160px" ng-repeat="a in accounts" ng-value="a.id">{{ a.name }}</option>
+      </select>
+    </div>
+
+  </ul>
+  <br>
+
+  <div class="tab-content color-links">
+
+    <!-- /////////////////////////////////////////////////////////////////// -->
+    <!-- // TAB CHARS ////////////////////////////////////////////////////// -->
+    <!-- /////////////////////////////////////////////////////////////////// -->
+
+    <div class="tab-pane active" id="chars">
+
+      <!-- SEARCH -->
+      <div class="input-group">
+        <input class="form-control" type="text" placeholder="Search for Name, Class and/or Role..." ng-model="char.search" ng-change="RefreshCharList()">
+        <div class="input-group-append">
+          <button class="btn btn-secondary" type="button" ng-click="char.search = ''; RefreshCharList()">&#10005;</button>
+         </div>
+      </div>
+      <br>
+
+      <!-- LIST -->
+      <div class="table-responsive">
+        <table class="table table-sm table-striped">
+
+          <!-- HEADER -->
+          <thead>
+            <tr>
+              <th><a href="javascript:;" ng-click="SortList(char, 'nickname', true)">Name</a></th>
+              <th class="d-none d-sm-table-cell">
+                <a href="javascript:;" ng-click="SortList(char, 'classname', true)">Class</a>
+              </th>
+              <th class="d-none d-sm-table-cell">
+                <a href="javascript:;" ng-click="SortList(char, 'role', true)">Role</a>
+              </th>
+              <th><a href="javascript:;" ng-click="SortList(char, 'kills', false)">Kills</a></th>
+              <th><a href="javascript:;" ng-click="SortList(char, 'items', false)">Items</a></th>
+              <th><a href="javascript:;" ng-click="SortList(char, 'ep', false)">EP</a></th>
+              <th><a href="javascript:;" ng-click="SortList(char, 'gp', false)">GP</a></th>
+              <th><a href="javascript:;" ng-click="SortList(char, 'points', false)">Score</a></th>
+            </tr>
+          </thead>
+
+          <!-- BODY -->
+          <tbody>
+            <tr ng-repeat="x in char.list | orderBy : [char.sort, 'nickname']">
+              <td style="color: {{ x.color }}">{{ x.name }}</td>
+              <td class="d-none d-sm-table-cell" style="color: {{ x.color }}">
+                {{ x.classname }}
+              </td>
+              <td class="d-none d-sm-table-cell">
+                {{ x.role }}
+              </td>
+              <td><a href="javascript:;" ng-click="KillsClick(x.name)">{{ x.kills }}</a></td>
+              <td><a href="javascript:;" ng-click="ItemsClick(x.name)">{{ x.items }}</a></td>
+              <td>{{ x.ep }}</td>
+              <td>{{ x.gp }}</td>
+              <td>{{ x.points }}</td>
+            </tr>
+          </tbody>
+
+          <!-- FOOTER -->
+          <tfoot>
+            <tr>
+              <td>{{ char.total.count }}</td>
+              <td class="d-none d-sm-table-cell"></td>
+              <td class="d-none d-sm-table-cell"></td>
+              <td></td>
+              <td>{{ char.total.items }}</td>
+              <td>{{ char.total.ep }}</td>
+              <td>{{ char.total.gp }}</td>
+              <td>{{ char.total.points }}</td>
+            </tr>
+          </tfoot>
+
+        </table>
+      </div>
+      <br>
+    </div>
+
+    <!-- /////////////////////////////////////////////////////////////////// -->
+    <!-- // TAB ITEMS ////////////////////////////////////////////////////// -->
+    <!-- /////////////////////////////////////////////////////////////////// -->
+
+    <div class="tab-pane" id="items">
+
+      <!-- SEARCH -->
+      <div class="input-group">
+        <input class="form-control" type="text" placeholder="Search for Item, Boss, Type, Slot and/or Class..." ng-model="item.search" ng-change="RefreshItemList()">
+        <div class="input-group-append">
+          <button class="btn btn-secondary" type="button" ng-click="item.search = ''; RefreshItemList()">&#10005;</button>
+         </div>
+      </div>
+      <br>
+
+      <!-- LIST -->
+      <div class="table-responsive">
+        <table class="table table-sm table-striped">
+
+          <!-- HEADER -->
+          <thead>
+            <tr>
+              <th><a href="javascript:;" ng-click="SortList(item, 'name', true)">Item</a></th>
+              <th><a href="javascript:;" ng-click="SortList(item, 'count', false)">Count</a></th>
+              <th class="d-none d-sm-table-cell">
+                <a href="javascript:;" ng-click="SortList(item, 'bossid', true)">Boss</a>
+              </th>
+              <th class="d-none d-lg-table-cell">
+                <a href="javascript:;" ng-click="SortList(item, 'xtype', true)">Type</a>
+              </th>
+              <th class="d-none d-lg-table-cell">
+                <a href="javascript:;" ng-click="SortList(item, 'slot', true)">Slot</a>
+              </th>
+              <th class="d-none d-lg-table-cell">
+                <a href="javascript:;" ng-click="SortList(item, 'xclass', true)">Class</a>
+              </th>
+              <th><a href="javascript:;" ng-click="SortList(item, 'cost', false)">Cost</a></th>
+              <th class="d-none d-md-table-cell">
+                Note
+              </th>
+            </tr>
+          </thead>
+
+          <!-- BODY -->
+          <tbody>
+            <tr ng-repeat="x in item.list | orderBy : [item.sort, 'name']">
+              <td class="color-epics">
+                <a href="https://{{ host }}/item={{ x.id }}" target="_blank">{{ x.name }}</a>
+              </td>
+              <td><a href="javascript:;" ng-click="PlayersClick(x.id)">{{ x.count }}</a></td>
+              <td class="d-none d-sm-table-cell">
+                {{ x.boss }}
+              </td>
+              <td class="d-none d-lg-table-cell">
+                {{ x.xtype }}
+              </td>
+              <td class="d-none d-lg-table-cell">
+                {{ x.slot }}
+              </td>
+              <td class="d-none d-lg-table-cell">
+                {{ x.xclass }}
+              </td>
+              <td>{{ x.cost }}</td>
+              <td class="d-none d-md-table-cell">
+                {{ x.note }}
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+      <br>
+    </div>
+
+  </div>
+
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <!-- // POPUPS /////////////////////////////////////////////////////////// -->
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+
+  <!-- KILLS -->
+  <div class="modal popup" id="kills_popup">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+
+        <div class="modal-body">
+          <button type="button" class="close" style="margin-top: -4px" data-dismiss="modal">&times;</button>
+
+          &nbsp;{{ char.stats.name }} Kills:
+          <table class="table table-sm">
+            <tr ng-repeat="x in char.stats.kills | orderBy : '-timestamp'">
+              <td>{{ x.timestamp }} - {{ x.bossname }}</td><td style="text-align: right">{{ x.points }}</td>
+            </tr>
+            <tr>
+              <td>TOTAL</td><td style="width: 80px; text-align: right">{{ char.stats.ktot1 }}</td>
+            </tr>
+          </table>
+          <div ng-if="char.stats.kcorr.length > 0">
+            &nbsp;{{ char.stats.name }} Corrections:
+            <table class="table table-sm">
+              <tr ng-repeat="x in char.stats.kcorr | orderBy : '-timestamp'">
+                <td>{{ x.timestamp }} - {{ x.reason }}</td><td style="text-align: right">{{ x.ep }}</td>
+              </tr>
+              <tr>
+                <td>TOTAL</td><td style="width: 80px; text-align: right">{{ char.stats.ktot2 }}</td>
+              </tr>
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ITEMS -->
+  <div class="modal popup" id="items_popup">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+
+        <div class="modal-body">
+          <button type="button" class="close" style="margin-top: -4px" data-dismiss="modal">&times;</button>
+
+          &nbsp;{{ char.stats.name }} Items:
+          <table class="table table-sm color-epics">
+            <tr ng-repeat="x in char.stats.items | orderBy : '-timestamp'">
+              <td>{{ x.timestamp }} - <a href="https://{{ host }}/item={{ x.itemid }}" target="_blank">{{ x.itemname }}</a></td><td style="text-align: right">{{ x.itemcost }}</td>
+            </tr>
+            <tr>
+              <td>TOTAL excl. BaseGP</td><td style="width: 80px; text-align: right">{{ char.stats.itot1 }}</td>
+            </tr>
+          </table>
+          <div ng-if="char.stats.icorr.length > 0">
+            &nbsp;{{ char.stats.name }} Corrections:
+            <table class="table table-sm">
+              <tr ng-repeat="x in char.stats.icorr | orderBy : '-timestamp'">
+                <td>{{ x.timestamp }} - {{ x.reason }}</td><td style="text-align: right">{{ x.gp }}</td>
+              </tr>
+              <tr>
+                <td>TOTAL</td><td style="width: 80px; text-align: right">{{ char.stats.itot2 }}</td>
+              </tr>
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PLAYERS -->
+  <div class="modal popup" id="players_popup">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+
+        <div class="modal-body">
+          <button type="button" class="close" style="margin-top: -4px" data-dismiss="modal">&times;</button>
+          {{ item.stats.name }}:
+          <ul>
+            <li ng-repeat="x in item.stats.players | orderBy : '-timestamp'">{{ x.timestamp }} - {{ x.name }}</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+
+  <!-- SCRIPT -->
+  <script>
+    var app = angular.module("app", []);
+    app.controller("controller", function($scope) {
+
+      $scope.data =
+
+// BEGIN IMPORTED DATA ///////////////////////////////////////////
+LUADKP_JSONDATA
+// END IMPORTED DATA /////////////////////////////////////////////
+
+      $scope.lang = $scope.data.Settings.lang || "en";
+      $scope.host = "LUADKP_HOST";
+
+      $scope.account = "" + $scope.data.Settings.stdacc;
+      $scope.accounts = [];
+      var acc = $scope.data.Accounts;
+      for (id in acc)
+        if (id > 0)
+          $scope.accounts.push({id : id, name : acc[id].name});
+      $scope.accounts.sort(function(a, b) { return a.id - b.id; });
+
+      ////////////////////////////////////////////////////////////
+      // CHAR LIST ///////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////
+
+      $scope.char = {};
+      $scope.char.search = "";
+      $scope.char.sort = "nickname";
+      $scope.char.list = [];
+      $scope.char.score = null;
+      $scope.char.total = null;
+      $scope.char.stats = null;
+
+      ////////////////////////////////////////////////////////////
+
+      var ResetChar = function() {
+        $scope.char.score = [];
+        $scope.char.total = {count : 0, items : 0, ep : 0, gp : 0, points : 0};
+        $scope.char.stats = {name : "", kills : [], items : []};
+      }
+
+      ////////////////////////////////////////////////////////////
+
+      var Truncate = function(n) {
+        return Math.floor(1000 * n) / 1000;
+      }
+
+      ////////////////////////////////////////////////////////////
+
+      $scope.Translate = function(obj, idx) {
+        if (!obj) return "";
+        if (!obj[idx]) return "";
+
+        var lang = $scope.lang;
+        if (!obj[idx][lang]) lang = "en";
+        if (!obj[idx][lang]) return "";
+
+        return obj[idx][lang];
+      }
+
+      ////////////////////////////////////////////////////////////
+
+      $scope.RefreshCharList = function() {
+        var raids = $scope.data.Raids;
+        var tags  = $scope.char.search.toLowerCase().split(" ");
+        var list  = [];
+
+        var total = {
+          items : 0,
+          ep : 0,
+          gp : 0,
+          points : 0
+        };
+
+        for (var name in $scope.char.score) {
+          var line = $scope.char.score[name];
+          var incl = $scope.char.search.length < 3;
+
+          tags.forEach(tag => {
+            if (tag.length < 3) return;
+            if (line.name.toLowerCase().includes(tag)) incl = true;
+            if (line.nickname.toLowerCase().includes(tag)) incl = true;
+            if (line.classname.toLowerCase().includes(tag)) incl = true;
+            if (line.role.toLowerCase().includes(tag)) incl = true;
+          });
+
+          if (!incl) continue;
+          total.items += line.items;
+          total.ep += line.ep;
+          total.gp += line.gp;
+          list.push(line);
+        }
+
+        total.count = list.length;
+        if (total.gp > 0)
+          total.points = Truncate(total.ep / total.gp);
+
+        $scope.char.list = list;
+        $scope.char.total = total;
+      }
+
+      ////////////////////////////////////////////////////////////
+
+      var InitPlayerScore = function(name) {
+        if ($scope.char.score[name]) return;
+        var roster  = $scope.data.Roster;
+        var classes = $scope.data.Classes;
+        var roles = $scope.data.Roles;
+        var inactive = $scope.data.Inactive;
+
+        // ignore inactive players!
+        if (inactive.includes(name)) return false;
+
+        var obj = {
+          name : name,
+          nickname : "",
+          classname : "",
+          color : "#808080",
+          role : "",
+          kills : 0,
+          items : 0,
+          ep : 0,
+          gp : $scope.data.Accounts[$scope.account].basegp,
+          points : 0,
+        };
+
+        var player = roster[name];
+        if (player) {
+          if (player.nickname) obj.nickname = player.nickname;
+
+          obj.role = $scope.Translate(roles, player.role);
+          
+          var playerclass = classes[player.xclass];
+          if (playerclass) {
+            obj.classname = $scope.Translate(classes, player.xclass);
+            obj.color = playerclass.color;
+          }
+        }
+
+        if (obj.nickname == "")
+          obj.nickname = obj.name;
+
+        $scope.char.score[name] = obj;
+        return true;
+      }
+
+      ////////////////////////////////////////////////////////////
+
+      var BuildScore = function() {
+
+        ResetChar();
+
+        var raids   = $scope.data.Raids;
+        var items   = $scope.data.Items;
+        var corrs   = $scope.data.Corrections;
+        var bosses  = $scope.data.Bosses;
+        var score   = $scope.char.score;
+        var account = parseInt($scope.account);
+
+        // gather data going through all raids...
+        raids.forEach(raid => {
+          var players = raid.players;
+          var kills   = raid.kills;
+          var drops   = raid.drops;
+
+          // get boss kills
+          kills.forEach(kill => {
+            var multi = kill.multi ? kill.multi : 1;
+            kill.players.forEach(player => {
+              var name = players[player];
+              if (name == null) return; // ignore unknown players
+
+              // only add bosses that belong to the selected account
+              var boss = bosses[kill.boss];
+              if (boss.accounts.includes(account)) {
+                if (InitPlayerScore(name) == false) return;
+                score[name].kills += 1;
+                score[name].ep += boss.points * multi; // add points for that boss!
+              }
+            });
+          });
+
+          // get dropped items
+          drops.forEach(drop => {
+            var name = players[drop.player];
+            if (name == null) return; // ignore unknown players
+
+            var item = items[drop.item]; // ignore unknown items
+            if (item == null) return;
+
+            var multi = drop.multi ? drop.multi : 1;
+
+            // only add items that belong to the selected account
+            if (account == item.account) {
+              if (InitPlayerScore(name) == false) return;
+              score[name].items += 1;
+              score[name].gp += item.cost * multi;
+            }
+          });
+        });
+
+        // apply corrections
+        corrs.list.forEach(line => {
+          if (typeof line.players != "object") return;
+          line.players.forEach(player => {
+            var name = corrs.players[player];
+            if (line.account == account) {
+              if (InitPlayerScore(name) == false) return;
+              score[name].ep += line.ep;
+              score[name].gp += line.gp;
+            }
+          });
+        });
+
+        // calculate points
+        for (var name in score)
+          if (score[name].gp > 0)
+            score[name].points = Truncate(score[name].ep / score[name].gp);
+
+        // refresh char list
+        $scope.RefreshCharList()
+      }
+
+      ////////////////////////////////////////////////////////////
+      // CHAR POPUP //////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////
+
+      var RefreshCharStats = function(name) {
+        var raids   = $scope.data.Raids;
+        var items   = $scope.data.Items;
+        var corrs   = $scope.data.Corrections;
+        var bosses  = $scope.data.Bosses;
+        var stats   = $scope.char.stats;
+        var account = parseInt($scope.account);
+
+        // reset stats
+        stats.name  = name;
+        stats.kills = [];
+        stats.items = [];
+        stats.kcorr = [];
+        stats.icorr = [];
+        stats.ktot1 = 0;
+        stats.ktot2 = 0;
+        stats.itot1 = 0;
+        stats.itot2 = 0;
+
+        // gather stats going through all raids...
+        raids.forEach(raid => {
+          var players = raid.players;
+          var kills   = raid.kills;
+          var drops   = raid.drops;
+
+          // find playerid!
+          var playerid = -1;
+          for (k in players)
+            if (players[k] == name) playerid = parseInt(k);
+
+          // was player in raid?
+          if (playerid == -1) return;
+
+          // get boss kills
+          kills.forEach(kill => {
+            var bossname = $scope.Translate(bosses, kill.boss);
+            var boss = bosses[kill.boss];
+            var multi = kill.multi ? kill.multi : 1;
+            if (boss.accounts.includes(account)) {
+              if (kill.players.includes(playerid)) {
+                stats.kills.push({
+                  timestamp : kill.timestamp,
+                  bossname  : bossname,
+                  points    : boss.points * multi,
+                });
+                stats.ktot1 += boss.points * multi;
+              }
+            }
+          });
+
+          // get dropped items
+          drops.forEach(drop => {
+            var itemname = "Unknown Item " + drop.item;
+            var itemcost = 0;
+            var multi = drop.multi ? drop.multi : 1;
+
+            var item = items[drop.item];
+            if (item == null) return;
+            if (item) itemname = item.name;
+            if (item) itemcost = item.cost;
+
+            if (account == item.account) {
+              if (drop.player == playerid) {
+                stats.items.push({
+                  timestamp : drop.timestamp,
+                  itemname  : itemname,
+                  itemcost  : itemcost * multi,
+                  itemid    : drop.item,
+                });
+                stats.itot1 += itemcost * multi;
+              }
+            }
+          });
+        });
+
+        // apply corrections
+        corrs.list.forEach(line => {
+          if (typeof line.players != "object") return;
+          line.players.forEach(player => {
+            if (name != corrs.players[player]) return;
+            if (line.account != account) return;
+
+            if (line.ep != 0) stats.kcorr.push({
+              timestamp : line.timestamp,
+              ep        : line.ep,
+              reason    : line.reason,
+            });
+
+            if (line.gp != 0) stats.icorr.push({
+              timestamp : line.timestamp,
+              gp        : line.gp,
+              reason    : line.reason,
+            });
+
+            stats.ktot2 += line.ep;
+            stats.itot2 += line.gp;
+          });
+        });
+      }
+
+      ////////////////////////////////////////////////////////////
+
+      $scope.KillsClick = function(name) {
+        RefreshCharStats(name);
+        $("#kills_popup").modal();
+      }
+
+      ////////////////////////////////////////////////////////////
+
+      $scope.ItemsClick = function(name) {
+        RefreshCharStats(name);
+        $("#items_popup").modal();
+      }
+
+      ////////////////////////////////////////////////////////////
+      // ITEM LIST ///////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////
+
+      $scope.item = {};
+      $scope.item.search = "";
+      $scope.item.sort = "name";
+      $scope.item.list = [];
+      $scope.item.inventory = null;
+      $scope.item.stats = null;
+
+      ////////////////////////////////////////////////////////////
+
+      var ResetItem = function() {
+        $scope.item.inventory = {};
+        $scope.item.stats = {};
+      }
+
+      ////////////////////////////////////////////////////////////
+
+      $scope.RefreshItemList = function() {
+        var inventory = $scope.item.inventory;
+        var tags = $scope.item.search.toLowerCase().split(" ");
+        var list = [];
+        var empty = false;
+
+        // available filters
+        var filter = {
+          name   : [],
+          boss   : [],
+          xtype  : [],
+          slot   : [],
+          xclass : [],
+        };
+
+        // sort tags into filter buckets (according to best partial/full match count)
+        tags.forEach(tag => {
+          var full = false;
+          var last = 0;
+          var best = null;
+
+          // ignore short tags
+          if (tag.length < 3) return;
+
+          // go through columns...
+          for (var col in filter) {
+            var cnt = 0;
+
+            // go through rows...
+            for (var id in inventory) {
+              var row = inventory[id];
+              var val = row[col];
+
+              // count partial matches
+              if (!full && val.toLowerCase().includes(tag)) cnt++;
+
+              // count full matches
+              if (val.toLowerCase() == tag) {
+                if (!full) cnt = 0;
+                full = true;
+                cnt++;
+              }
+            }
+
+            // record best match!
+            if (cnt > last) {
+              last = cnt;
+              best = col;
+            }
+          }
+
+          if (best) filter[best].push(tag);
+          else empty = true;
+        });
+
+        // go through rows...
+        if (!empty) {
+          for (var id in inventory) {
+            var row = inventory[id];
+            var keep = true;
+
+            // go through columns...
+            for (col in filter) {
+              var incl = filter[col].length == 0;
+
+              // go though tags...
+              filter[col].forEach(tag => {
+
+                // find at least one match...
+                if (row[col].toLowerCase().includes(tag)) incl = true;
+              });
+
+              // ...to keep the row
+              if (!incl) keep = false;
+            }
+
+            // add row to list!
+            if (keep) list.push(row);
+          }
+        }
+
+        $scope.item.list = list;
+      }
+
+      ////////////////////////////////////////////////////////////
+
+      $scope.RefreshItemList_Old = function() {
+        var inventory = $scope.item.inventory;
+        var tags = $scope.item.search.toLowerCase().split(" ");
+        var list = [];
+
+        for (var id in inventory) {
+          var line = inventory[id];
+          var incl = $scope.item.search.length < 2;
+
+          tags.forEach(tag => {
+            if (line.cost == tag) incl = true;
+            if (tag.length < 2) return;
+
+            if (line.name.toLowerCase().includes(tag)) incl = true;
+            if (line.boss.toLowerCase().includes(tag)) incl = true;
+            if (line.xtype.toLowerCase().includes(tag)) incl = true;
+            if (line.slot.toLowerCase().includes(tag)) incl = true;
+            if (line.xclass.toLowerCase().includes(tag)) incl = true;
+          });
+
+          if (!incl) continue;
+          list.push(line);
+        }
+
+        $scope.item.list = list;
+      }
+
+      ////////////////////////////////////////////////////////////
+
+      var BuildInventory = function() {
+
+        ResetItem();
+
+        var raids     = $scope.data.Raids;
+        var items     = $scope.data.Items;
+        var bosses    = $scope.data.Bosses;
+        var slots     = $scope.data.Slots;
+        var types     = $scope.data.Types;
+        var classes   = $scope.data.Classes;
+        var inventory = $scope.item.inventory;
+        var account   = parseInt($scope.account);
+
+        // add items to inventory
+        for (var id in items) {
+          var item = items[id];
+          if (item.account == account) {
+            inventory[id] = {
+              id      : id,
+              name    : item.name,
+              count   : 0,
+              players : [],
+              bossid  : item.boss,
+              boss    : $scope.Translate(bosses, item.boss),
+              slot    : $scope.Translate(slots, item.slot),
+              xtype   : $scope.Translate(types, item.xtype),
+              xclass  : $scope.Translate(classes, item.xclass),
+              cost    : item.cost,
+              note    : item.note || "",
+            };
+          };
+        }
+
+        // go through all raids...
+        raids.forEach(raid => {
+
+          // add drops to inventory
+          raid.drops.forEach(drop => {
+            var item = inventory[drop.item];
+            var name = raid.players[drop.player];
+            if (!item || !name) return;
+            item.players.push({
+              timestamp : drop.timestamp,
+              name      : name,
+            });
+            item.count = item.players.length;
+          });
+        });
+
+        $scope.RefreshItemList();
+      }
+
+      ////////////////////////////////////////////////////////////
+      // ITEM POPUP //////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////
+
+      $scope.PlayersClick = function(id) {
+        $scope.item.stats = $scope.item.inventory[id];
+        $("#players_popup").modal();
+      }
+
+      ////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////
+
+      $scope.SortList = function(obj, column, asc) {
+        if (obj.sort == column) {
+          obj.sort = "-" + column;
+          return;
+        }
+
+        if (obj.sort == "-" + column) {
+          obj.sort = column;
+          return;
+        }
+
+        obj.sort = "-" + column;
+        if (asc) obj.sort = column;
+      }
+
+      ////////////////////////////////////////////////////////////
+
+      $scope.ChangeAccount = function() {
+        BuildScore();
+        BuildInventory();
+      }
+
+      ////////////////////////////////////////////////////////////
+
+      $scope.ChangeAccount();
+
+    });
+
+  </script>
+
+  <script>var whTooltips = {colorLinks: false, iconizeLinks: false, renameLinks: false};</script>
+  <script src="https://wow.zamimg.com/widgets/power.js"></script>
+
+</div>
+</body>
+</html>

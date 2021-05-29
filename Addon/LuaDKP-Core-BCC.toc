@@ -1,0 +1,11 @@
+## Interface: 20501
+## Title: LuaDKP-Core
+## SavedVariables: LuaDKP_Settings
+
+Init.lua
+Tools.lua
+Misc.lua
+Calc.lua
+Store.lua
+Group.lua
+Main.lua
