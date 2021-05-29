@@ -10,8 +10,8 @@ All-in-one package with:
 * Also works outside of guilds (no officer notes required)
 
 Installation:
-* Download addon.zip and unpack it to WoW's Interface/Addons folder
-* Download manager.zip and unpack it to your Desktop or Documents folder
+* Download [addon.zip](/int3code/LuaDKP/releases/latest/download/addon.zip) and unpack it to WoW's Interface/Addons folder
+* Download [manager.zip](/int3code/LuaDKP/releases/latest/download/manager.zip) and unpack it to your Desktop or Documents folder
 
 *Important: You need both parts (addon and manager) for the package to work as intended!*
 
