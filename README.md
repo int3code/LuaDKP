@@ -16,6 +16,8 @@ Installation:
 *Important: You need both parts (addon and manager) for the package to work as intended!*
 
 How to get help:
+* Watch the demo video on YouTube: https://www.youtube.com/watch?v=urjL5tsLxF8
+* Try the example report: https://int3code.github.io/LuaDKP/example.html
 * You can reach me via Discord: https://discord.gg/MqsXMn5YGG
 
 Source Install (if you want to contribute):
