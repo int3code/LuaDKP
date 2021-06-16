@@ -15,7 +15,7 @@ Bidding Pros:
 Bidding Cons:
 - It awards people who are good at estimating prices and playing markets, not players who are good at playing the game.
 - It feels bad if somebody else got the same item as you just two weeks later for half the price due to changes in the market.
-- It gives an advantage to nieche classes/specs with little competition. They will often get items for the minimum amount because the competition sets the price, not the quality of the item.
+- It gives an advantage to niche classes/specs with little competition. They will often get items for the minimum amount because the competition sets the price, not the quality of the item.
 - The last person to get an item will get it for the minimum amount. Anticipating this, the second to last person will also be reluctant to bid very much (implicit collusion).
 - Two or more people can secretly agree not to compete against each other (explicit collusion), in order to keep prices low for themselves, to the detriment of those not in on the agreement.
 

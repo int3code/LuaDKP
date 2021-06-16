@@ -9,6 +9,10 @@ All-in-one package with:
 - Easy to edit and backup
 - Also works outside of guilds (no officer notes required)
 
+This package consists of two parts:
+- The addon for tracking raids, displaying scores and assigning items
+- An external manager component (written in Lua and run with the official Lua interpreter) to import/export data and generate HTML reports
+
 Installation:
 - Download [addon.zip](https://github.com/int3code/LuaDKP/releases/latest/download/addon.zip) and unpack it to WoW's Interface/Addons folder
 - Download [manager.zip](https://github.com/int3code/LuaDKP/releases/latest/download/manager.zip) and unpack it to your Desktop or Documents folder
@@ -23,6 +27,7 @@ How to get help:
 Documentation:
 - [Introduction to EPGP](docs/Introduction_to_EPGP.md)
 - [Why EPGP is the best system](docs/Why_EPGP_is_the_best_system.md)
+- [How LuaDKP works](docs/How_LuaDKP_works.md)
 
 Source Install (if you want to contribute):
 - Use Git to clone the repository to your computer
