@@ -1,4 +1,4 @@
-# How LuaDKP works
+# LuaDKP vs. other addons
 
 The way LuaDKP works is quite different compared to other addons. It has an external component that is tightly integrated and **not** optional. The main goal is to get all data out of WoW as quickly as possible. Let me explain...
 
@@ -54,4 +54,4 @@ Reports:
 - Ditch ingame score lists! Do not force every raid member to have your addon installed just to view scores.
 - Generate single-file HTML reports instead! Upload to Discord! Or a website.
 
-Doing this, you get a fully functional DKP system that has 3,000 lines of code. Compare that to a *certain other* DKP addon that has 18,000 lines of code. ;-)
+Doing this, you get a fully functional DKP system that has 3,000 lines of code, making it rather easy to maintain. Compare this to other DKP addons that may have as many as 18,000 lines of code.

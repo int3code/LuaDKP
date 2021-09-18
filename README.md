@@ -27,7 +27,7 @@ How to get help:
 Documentation:
 - [Introduction to EPGP](docs/Introduction_to_EPGP.md)
 - [Why EPGP is the best system](docs/Why_EPGP_is_the_best_system.md)
-- [How LuaDKP works](docs/How_LuaDKP_works.md)
+- [LuaDKP vs. other addons](docs/LuaDKP_vs_other_addons.md)
 
 Source Install (if you want to contribute):
 - Use Git to clone the repository to your computer

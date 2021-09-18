@@ -246,6 +246,29 @@ local function CreateTrackerFrame()
 
   ----------------------------------------
 
+  if not LuaDKP_GetData then
+    caption2:Hide()
+    caption3:Hide()
+    label:Hide()
+    dropdown1:Hide()
+    dropdown2:Hide()
+    edit:Hide()
+
+    local msg = "The LuaDKP-Data addon appears to be missing!|n|n" ..
+                "LuaDKP-Core requires groups, settings and raids|n" ..
+                "from LuaDKP-Data in order to work correctly.|n|n" ..
+                "Read the instructions to find out how to export|n" ..
+                "your data from the external manager to WoW."
+
+    err = frame:CreateFontString(nil, "BORDER", "GameFontNormal")
+    err:SetPoint("TOPLEFT", 20, -34)
+    err:SetJustifyH("LEFT")
+    err:SetText(msg)
+    err:SetTextColor(1, 0, 0)
+  end
+
+  ----------------------------------------
+
   groups = ADDON.GetGroups()
 end
 

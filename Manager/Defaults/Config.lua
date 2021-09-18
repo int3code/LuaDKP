@@ -14,7 +14,7 @@ local _, ADDON = ...
 
 local config = {
   basedir = "C:/Games/World of Warcraft/_classic_",
-  interface = "20501",
+  interface = "20502",
   expansion = "tbc",
 }
 
