@@ -47,6 +47,20 @@ local bosses = {
   [1120] = {points = 15, accounts = {4}, en = "Thaddius"},
   [1121] = {points = 20, accounts = {4}, en = "Horsemen", de = "Reiter"},
 
+  -- SSC:
+  [ 623] = {points = 15, accounts = {5}, en = "Hydross"},
+  [ 624] = {points = 10, accounts = {5}, en = "Lurker"},
+  [ 625] = {points = 10, accounts = {5}, en = "Leotheras"},
+  [ 626] = {points = 15, accounts = {5}, en = "Karathress"},
+  [ 627] = {points = 10, accounts = {5}, en = "Morogrim"},
+  [ 628] = {points = 25, accounts = {5}, en = "Lady Vashj"},
+
+  -- TK:
+  [ 730] = {points = 15, accounts = {5}, en = "Al'ar"},
+  [ 731] = {points = 10, accounts = {5}, en = "Void Reaver", de = "Leerhäscher"},
+  [ 732] = {points = 10, accounts = {5}, en = "Solarian"},
+  [ 733] = {points = 25, accounts = {5}, en = "Kael'thas"},
+
 }
 
 ------------------------------------------------------------
