@@ -24,7 +24,10 @@ How to get help:
 - Try the example report: https://int3code.github.io/LuaDKP/example.html
 - You can reach me via Discord: https://discord.gg/MqsXMn5YGG
 
-Documentation:
+Questions & Answers:
+- [Quick Q&A](docs/Quick_Q&A.md)
+
+Ideas & Considerations:
 - [Introduction to EPGP](docs/Introduction_to_EPGP.md)
 - [Why EPGP is the best system](docs/Why_EPGP_is_the_best_system.md)
 - [LuaDKP vs. other addons](docs/LuaDKP_vs_other_addons.md)
