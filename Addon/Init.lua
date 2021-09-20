@@ -44,6 +44,9 @@ end
 
 local function EventHandler(self, event, ...)
 
+  -- prevent reinitialization
+  self:SetScript("OnEvent", nil)
+
   -- get data
   if LuaDKP_GetData then
     GetData()
