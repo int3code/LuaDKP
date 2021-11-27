@@ -87,7 +87,33 @@ end
 
 ------------------------------------------------------------
 
+local function FilterItems(group)
+
+  -- collect all dropped items
+  local droppeditems = {};
+  for i,raid in ipairs(group.Raids) do
+    for j,drop in ipairs(raid.drops) do
+      droppeditems[drop.item] = true
+    end
+  end
+
+  -- filter items
+  for id,item in pairs(group.Items) do
+    local acc = group.Accounts[item.account]
+    if not acc and not droppeditems[id] then
+      group.Items[id] = nil
+    end
+  end
+
+end
+
+------------------------------------------------------------
+
 local function ExportGroup(filename, group)
+
+  -- remove items that do not belong to a valid account and have never dropped!
+  -- this will reduce the file size of the HTML output
+  FilterItems(group)
 
   -- add names to items!
   for id,item in pairs(group.Items) do
