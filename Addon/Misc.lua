@@ -82,12 +82,20 @@ end
 ------------------------------------------------------------
 
 local function GetItemInfo(group, id)
+
+  -- get item
   local item = ADDON.Groups[group].Items[id]
   if not item then
     return false
   end
-  local name = (ADDON.Groups[group].Accounts[item.account] or {}).name or item.account
-  return true, item.cost, item.note, item.account, name
+
+  -- get account
+  local account = ADDON.Groups[group].Accounts[item.account]
+  if not account then
+    return false
+  end
+
+  return true, item.cost, item.note, item.account, account.name
 end
 
 ------------------------------------------------------------
