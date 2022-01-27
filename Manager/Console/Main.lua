@@ -83,15 +83,20 @@ local function ShowAdvanced()
     print("================")
     print()
     print("1. Translate Items")
+    print("2. Build Templates")
     print("0. Back")
     print()
-    local d = ADDON.Choice("Answer", "10")
+    local d = ADDON.Choice("Answer", "120")
     print()
 
     if d == "1" then
       ADDON.LoadGroups()
       ADDON.TranslateItems()
       ADDON.Groups = nil
+    end
+
+    if d == "2" then
+      ADDON.BuildTemplates()
     end
 
   until d == "0"
@@ -154,6 +159,7 @@ ADDON.LoadFile("Console/ImportWTF.lua")
 ADDON.LoadFile("Console/ExportAddon.lua")
 ADDON.LoadFile("Console/ExportHTML.lua")
 ADDON.LoadFile("Console/TranslateItems.lua")
+ADDON.LoadFile("Console/BuildTemplates.lua")
 ADDON.LoadFile("Console/Menu.lua")
 
 -- load configuarion
