@@ -67,9 +67,10 @@ local types = {
   [13] = {en = "Crossbow", de = "Armbrust"},
   [14] = {en = "Gun", de = "Schusswaffe"},
   [15] = {en = "Wand", de = "Zauberstab"},
-  [16] = {en = "Trown", de = "Wurfwaffe"},
+  [16] = {en = "Thrown", de = "Wurfwaffe"},
   [17] = {en = "Shield", de = "Schild"},
   [18] = {en = "Token", de = "Marke"},
+  [19] = {en = "Recipe", de = "Rezept"},
 }
 
 ------------------------------------------------------------

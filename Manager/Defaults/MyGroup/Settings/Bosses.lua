@@ -8,6 +8,7 @@ local bosses = {
   [   2] = {en = "The Three Drakes", de = "Die Drei Drachen"},
   [   3] = {en = "All Bosses", de = "Alle Bosse"},
   [   4] = {en = "Huhuran/Viscidus"},
+  [   5] = {en = "Trash/Bosses"},
 
   -- BWL:
   [ 610] = {points = 10, accounts = {2}, en = "Razorgore"},
@@ -61,6 +62,23 @@ local bosses = {
   [ 732] = {points = 10, accounts = {5}, en = "Solarian"},
   [ 733] = {points = 25, accounts = {5}, en = "Kael'thas"},
 
+  -- MH:
+  [ 618] = {points = 10, accounts = {6}, en = "Winterchill"},
+  [ 619] = {points = 10, accounts = {6}, en = "Anetheron"},
+  [ 620] = {points = 10, accounts = {6}, en = "Kaz'rogal"},
+  [ 621] = {points = 15, accounts = {6}, en = "Azgalor"},
+  [ 622] = {points = 25, accounts = {6}, en = "Archimonde"},
+
+  -- BT:
+  [ 601] = {points = 10, accounts = {6}, en = "Naj'entus"},
+  [ 602] = {points = 10, accounts = {6}, en = "Supremus"},
+  [ 603] = {points = 10, accounts = {6}, en = "Akama"},
+  [ 604] = {points = 15, accounts = {6}, en = "Gorefiend"},
+  [ 605] = {points = 15, accounts = {6}, en = "Bloodboil"},
+  [ 606] = {points = 15, accounts = {6}, en = "Reliquary"},
+  [ 607] = {points = 15, accounts = {6}, en = "Shahraz"},
+  [ 608] = {points = 15, accounts = {6}, en = "Council"},
+  [ 609] = {points = 25, accounts = {6}, en = "Illidan"},
 }
 
 ------------------------------------------------------------

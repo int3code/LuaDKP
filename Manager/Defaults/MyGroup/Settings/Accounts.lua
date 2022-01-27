@@ -9,6 +9,7 @@ local accounts = {
 --[3] = {basegp = 200, name = "AQ40"},
 --[4] = {basegp = 200, name = "Naxx"},
   [5] = {basegp = 200, name = "SSC/TK"},
+  [6] = {basegp = 200, name = "MH/BT"},
 }
 
 ------------------------------------------------------------
