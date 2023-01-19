@@ -10,12 +10,12 @@ local _, ADDON = ...
 -- WoW complains about the addon being outdated. Look
 -- at other addons' TOC files to get the current number.
 
--- expansion: Valid values are "classic", "tbc" and "retail"
+-- expansion: Valid values are "classic", "tbc", "wotlk" and "retail"
 
 local config = {
   basedir = "C:/Games/World of Warcraft/_classic_",
-  interface = "20502",
-  expansion = "tbc",
+  interface = "30401",
+  expansion = "wotlk",
 }
 
 ------------------------------------------------------------

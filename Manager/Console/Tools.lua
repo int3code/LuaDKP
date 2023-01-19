@@ -89,28 +89,19 @@ end
 ------------------------------------------------------------
 
 local function GetHost(lang, expansion)
-
-  -- default prefix
-  local pre = ""
   if lang and lang ~= "en" then
-    pre = lang .. "."
+    if expansion and expansion ~= "retail" then
+      return "www.wowhead.com/" .. expansion .. "/" .. lang
+    else
+      return "www.wowhead.com/" .. lang
+    end
+  else
+    if expansion and expansion ~= "retail" then
+      return "www.wowhead.com/" .. expansion
+    else
+      return "www.wowhead.com"
+    end
   end
-
-  -- classic
-  if expansion == "classic" then
-    return pre .. "classic.wowhead.com"
-  end
-
-  -- tbc
-  if expansion == "tbc" then
-    return pre .. "tbc.wowhead.com"
-  end
-
-  -- assume retail
-  if lang and lang ~= "en" then
-    return pre .. "wowhead.com"
-  end
-  return "www.wowhead.com"
 end
 
 ------------------------------------------------------------
